@@ -2,6 +2,8 @@ package musicPlayer;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 public class MusicOrganizerController {
 
 	private MusicOrganizerWindow view;
@@ -46,6 +48,9 @@ public class MusicOrganizerController {
 	 */
 	public void addNewAlbum(){ //TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
+		
+		Album album=new Album(view.promptForAlbumName());
+		view.onAlbumAdded(album);
 	}
 	
 	/**
