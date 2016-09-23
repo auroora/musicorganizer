@@ -1,5 +1,6 @@
 package musicPlayer;
 
+
 import java.util.ArrayList;
 
 public class Organizer {
@@ -22,7 +23,7 @@ public class Organizer {
 					sound.albumList.remove(album.getChildrenAlbums().get(i));
 				}
 				for (int j = 0;j<Main.allAlbums.size();j++){
-					if (new Integer(Main.allAlbums.get(j).getParent()).equals(album.getChildrenAlbums().get(i))){
+					if (Main.allAlbums.get(j).getParent().equals(album.getChildrenAlbums().get(i))){
 						removeFromAlbum(Main.allAlbums.get(j), sound);
 					}
 					if (Main.allAlbums.get(j).getSongs().isEmpty()){
@@ -38,7 +39,7 @@ public class Organizer {
 	
 	public void deleteAlbum(Album album) {
 //		if (album.getID() != 0){
-		ArrayList<Integer> subAlbums = new ArrayList<Integer>();
+		ArrayList<Album> subAlbums = new ArrayList<Album>();
 		subAlbums = getAllChildren(album, subAlbums);
 		for(int i = 0;i<Main.allSongs.songList.size();i++){
 			removeFromAlbum(album, Main.allSongs.songList.get(i));
@@ -55,12 +56,12 @@ public class Organizer {
 	}
 	
 
-	public ArrayList<Integer> getAllChildren(Album album, ArrayList<Integer> subAlbums) {
+	public ArrayList<Album> getAllChildren(Album album, ArrayList<Album> subAlbums) {
 		if (album.childrenAlbums.size()>0){
 			for(int i = 0;i<album.childrenAlbums.size();i++){
 				subAlbums.add(album.childrenAlbums.get(i));
 				for (int j = 0;j<Main.allAlbums.size();j++){
-					if (new Integer(Main.allAlbums.get(j).getParent()).equals(album.getChildrenAlbums().get(i)) && !Main.allAlbums.get(j).equals(album)){
+					if (Main.allAlbums.get(j).getParent().equals(album.getChildrenAlbums().get(i)) && !Main.allAlbums.get(j).equals(album)){
 						getAllChildren(Main.allAlbums.get(j), subAlbums);
 					}
 			}

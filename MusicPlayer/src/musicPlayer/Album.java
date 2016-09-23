@@ -1,13 +1,14 @@
 package musicPlayer;
 
+
 import java.util.ArrayList;
 
 public class Album {
 	private static int counter = 0;
 	private int albumID;
-	private int parentAlbum;
+	private Album parentAlbum;
 	private String name;
-	public ArrayList<Integer> childrenAlbums;
+	public ArrayList<Album> childrenAlbums;
 	ArrayList<SoundClip> songList;
 	
 	
@@ -18,30 +19,30 @@ public class Album {
 		counter++;
 		name = albumName;
 		songList = new ArrayList<SoundClip>();
-		childrenAlbums = new ArrayList<Integer>();
+		childrenAlbums = new ArrayList<Album>();
 		Main.allAlbums.add(this);
 	}
 	
 	public void setParent(Album album){
 		if (album == null) {
-			parentAlbum = 0;
+			parentAlbum = null;
 		}
 		else {
-		parentAlbum = album.getID();
+		parentAlbum = album;
 		}
 	}
 	
-	public int getParent(){
+	public Album getParent(){
 		return parentAlbum;
 	}
 	
 	public void setchildrenAlbums(Album album){
-		if (!childrenAlbums.contains(album.getID())){
-			childrenAlbums.add(album.getID());
+		if (!childrenAlbums.contains(album)){
+			childrenAlbums.add(album);
 		}
 	}
 	
-	public ArrayList<Integer> getChildrenAlbums(){
+	public ArrayList<Album> getChildrenAlbums(){
 		return childrenAlbums;
 	}
 	
