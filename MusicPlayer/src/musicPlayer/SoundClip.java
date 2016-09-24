@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class SoundClip {
 
 	private final File file;
-	public ArrayList<Integer> albumList;
+//	public ArrayList<Album> albumList;
 	
 	/**
 	 * Make a SoundClip from a file.
@@ -20,7 +20,7 @@ public class SoundClip {
 	public SoundClip(File file) {
 		assert file != null;
 		this.file = file;
-		albumList = new ArrayList<Integer>();
+//		albumList = new ArrayList<Album>();
 	}
 
 	/**
@@ -46,9 +46,9 @@ public class SoundClip {
 		return file.hashCode();
 	}
 	
-	public ArrayList<Integer> getAlbums(){
-		return albumList;
-	}
+//	public ArrayList<Album> getAlbums(){
+//		return albumList;
+//	}
 	
 
 }
