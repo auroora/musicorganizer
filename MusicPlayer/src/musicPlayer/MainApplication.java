@@ -13,7 +13,8 @@ public class MainApplication {
 
 				MusicOrganizerController controller = new MusicOrganizerController();
 				if (args.length == 0) {
-					controller.loadSoundClips("sample-sound");
+					String userDir = System.getProperty("user.home")+"/Desktop";
+					controller.loadSoundClips(userDir);
 				} else if (args.length == 1) {
 					controller.loadSoundClips(args[0]);
 				} else {
