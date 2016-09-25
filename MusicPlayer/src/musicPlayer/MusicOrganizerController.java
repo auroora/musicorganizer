@@ -51,6 +51,8 @@ public class MusicOrganizerController {
 		// TODO: Add your code here
 		
 		Album album=new Album(view.promptForAlbumName());
+		album.setParent(view.getSelectedAlbum());
+		view.getSelectedAlbum().setchildrenAlbums(album);
 		view.onAlbumAdded(album);
 	}
 	
