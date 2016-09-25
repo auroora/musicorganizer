@@ -32,7 +32,8 @@ public class MusicOrganizerController {
 	public Set<SoundClip> loadSoundClips(String path) {
 		Set<SoundClip> clips = SoundClipLoader.loadSoundClips(path);
 		// TODO: Add the loaded sound clips to the root album
-
+		for(SoundClip c:clips)
+			root.addToAlbum(c);
 		return clips;
 	}
 	

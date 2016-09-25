@@ -4,8 +4,6 @@ package musicPlayer;
 import java.util.ArrayList;
 
 public class Album {
-	private static int counter = 0;
-	private int albumID;
 	private Album parentAlbum;
 	private String name;
 	public ArrayList<Album> childrenAlbums;
@@ -15,8 +13,6 @@ public class Album {
 	
 	
 	public Album(String albumName) {
-		albumID = counter;
-		counter++;
 		name = albumName;
 		songList = new ArrayList<SoundClip>();
 		childrenAlbums = new ArrayList<Album>();
@@ -24,12 +20,7 @@ public class Album {
 	}
 	
 	public void setParent(Album album){
-		if (album == null) {
-			parentAlbum = null;
-		}
-		else {
 		parentAlbum = album;
-		}
 	}
 	
 	public Album getParent(){
@@ -46,10 +37,6 @@ public class Album {
 		return childrenAlbums;
 	}
 	
-	public int getID(){
-		return albumID;
-	}
-	
 	public String getName(){
 		return name;
 	}
@@ -58,15 +45,60 @@ public class Album {
 		return songList;
 	}
 	
-	public void addSounds(SoundClip sound){
-		songList.add(sound);
+	public void addToAlbum(SoundClip sound){
+		{
+//			sound.albumList.add(this);
+			songList.add(sound);
+		}
 	}
 	
-	public void removeSounds(SoundClip sound) {
+	public void removeFromAlbum(SoundClip sound){		//Tar bort en låt från albumet
+//		sound.albumList.remove(this);
 		int songIndex = songList.indexOf(sound);
 		if (songIndex != -1) {
 		songList.remove(songIndex);
 		}
+		if (getChildrenAlbums().size()>0) {		//Tar bort låten även från alla children album
+			ArrayList<Album> subAlbums = new ArrayList<Album>();
+			subAlbums = getAllChildren(this, subAlbums);
+//				if (sound.albumList.contains(getChildrenAlbums().get(i))) {
+//					sound.albumList.remove(getChildrenAlbums().get(i));
+//				}
+				for (int j = 0;j<subAlbums.size();j++){
+					subAlbums.get(j).songList.remove(sound);
+				}
+			}
+			
+		}
+	
+	public void deleteAlbum() {			//Tar bort ett helt album
+		ArrayList<Album> subAlbums = new ArrayList<Album>();
+		subAlbums = getAllChildren(this, subAlbums);
+		for(int i = 0;i<songList.size();i++){
+			removeFromAlbum(songList.get(i));
+			if (subAlbums.size()>0) {
+			for (int j = 0;j<Main.allAlbums.size();j++){		//Tar bort alla children albums från listan med alla album
+				for (int k = 0; k<subAlbums.size();k++){
+					Main.allAlbums.remove(subAlbums.get(k));
+				}
+			}
+			}
+		}
+		if (getParent() != null) {
+		getParent().getChildrenAlbums().remove(this);
+			Main.allAlbums.remove(this);
+		}
+	}
+	
+
+	public ArrayList<Album> getAllChildren(Album album, ArrayList<Album> subAlbums) {
+		if (album.getChildrenAlbums().size()>0){
+			for(int i = 0;i<album.getChildrenAlbums().size();i++){
+				subAlbums.add(album.getChildrenAlbums().get(i));
+				getAllChildren(album.getChildrenAlbums().get(i), subAlbums);
+		}
+	}
+		return subAlbums;
 	}
 	
 
