@@ -65,6 +65,7 @@ public class MusicOrganizerController {
 	 */
 	public void addSoundClips(){ //TODO Update parameters if needed
 		// TODO: Add your code here
+		
 	}
 	
 	/**

@@ -164,7 +164,7 @@ public class MusicOrganizerWindow extends JFrame {
 	 * @return the selected Album
 	 */
 	public Album getSelectedAlbum() {
-		
+		System.out.println("selected album");
 		return (Album) getSelectedTreeNode().getUserObject();
 	}
 	
