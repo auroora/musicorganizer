@@ -15,16 +15,52 @@ public class AlbumTest {
 	
 	private Album a;
 	private Album b;
-	private Organizer o = new Organizer();
-	private SoundClip file =new SoundClip(new File("song.waw"));
+	private SoundClip file;
 
 
 	@Test
 	public void testRemoveSounds() {
+		file = new SoundClip(new File("song.waw"));
 		a = new Album("myAlbum");
-		o.addToAlbum(a, file);
-		a.removeSounds(file);
+		a.addToAlbum(file);
+		a.removeFromAlbum(file);
 		assertFalse(a.getSongs().contains(file));
+	}
+	
+	@Test
+	public void testAddToAlbum() {
+		a = new Album("myAlbum");
+		file = new SoundClip(new File("song.waw"));
+		a.addToAlbum(file);
+		assertTrue(a.getSongs().contains(file));
+	}
+
+	@Test
+	public void testRemoveFromAlbum() {
+		a = new Album("myAlbum");
+		file = new SoundClip(new File("song.waw"));
+		a.addToAlbum(file);
+		a.removeFromAlbum(file);
+		assertFalse(a.getSongs().contains(file));
+		
+	}
+
+	@Test
+	public void testDeleteAlbum() {
+		a = new Album("myAlbum");
+		b = new Album("Album2");
+		file = new SoundClip(new File("song.waw"));
+		b.addToAlbum(file);
+		a.addToAlbum(file);
+		Main.allSongs.addToAlbum(file);
+		Main.allAlbums.add(a);
+		Main.allAlbums.add(b);
+		a.setchildrenAlbums(b);
+		b.setParent(a);
+		a.setParent(null);
+		Main.allAlbums.add(a);
+		a.deleteAlbum();
+		assertTrue(Main.allAlbums.contains(a));
 	}
 
 }
