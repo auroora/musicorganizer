@@ -50,10 +50,18 @@ public class MusicOrganizerController {
 	public void addNewAlbum(){ //TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
 		
-		Album album=new Album(view.promptForAlbumName());
-		album.setParent(view.getSelectedAlbum());
-		view.getSelectedAlbum().setchildrenAlbums(album);
-		view.onAlbumAdded(album);
+		try {
+			Album album=new Album(view.promptForAlbumName());
+			album.setParent(view.getSelectedAlbum());
+			view.getSelectedAlbum().setchildrenAlbums(album);
+			view.onAlbumAdded(album);
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(null, "Please select folder");
+			return;
+		}
 	}
 	
 	/**
@@ -61,6 +69,8 @@ public class MusicOrganizerController {
 	 */
 	public void deleteAlbum(){ //TODO Update parameters if needed
 		// TODO: Add your code here
+//		view.getSelectedAlbum().deleteAlbum();
+		view.onAlbumRemoved(view.getSelectedAlbum());
 	}
 	
 	/**
