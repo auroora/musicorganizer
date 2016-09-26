@@ -52,13 +52,13 @@ public class Album {
 		}
 	}
 	
-	public void removeFromAlbum(SoundClip sound){		//Tar bort en låt från albumet
+	public void removeFromAlbum(SoundClip sound){		//Tar bort en lï¿½t frï¿½n albumet
 //		sound.albumList.remove(this);
 		int songIndex = songList.indexOf(sound);
 		if (songIndex != -1) {
 		songList.remove(songIndex);
 		}
-		if (getChildrenAlbums().size()>0) {		//Tar bort låten även från alla children album
+		if (getChildrenAlbums().size()>0) {		//Tar bort lï¿½ten ï¿½ven frï¿½n alla children album
 			ArrayList<Album> subAlbums = new ArrayList<Album>();
 			subAlbums = getAllChildren(this, subAlbums);
 //				if (sound.albumList.contains(getChildrenAlbums().get(i))) {
@@ -77,7 +77,7 @@ public class Album {
 		for(int i = 0;i<songList.size();i++){
 			removeFromAlbum(songList.get(i));
 			if (subAlbums.size()>0) {
-			for (int j = 0;j<Main.allAlbums.size();j++){		//Tar bort alla children albums från listan med alla album
+			for (int j = 0;j<Main.allAlbums.size();j++){		//Tar bort alla children albums frï¿½n listan med alla album
 				for (int k = 0; k<subAlbums.size();k++){
 					Main.allAlbums.remove(subAlbums.get(k));
 				}

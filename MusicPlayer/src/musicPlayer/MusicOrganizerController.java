@@ -34,6 +34,7 @@ public class MusicOrganizerController {
 		// TODO: Add the loaded sound clips to the root album
 		for(SoundClip c:clips)
 			root.addToAlbum(c);
+		System.out.println("root size "+ clips.size());
 		return clips;
 	}
 	
