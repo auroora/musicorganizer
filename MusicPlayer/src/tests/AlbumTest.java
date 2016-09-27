@@ -45,22 +45,22 @@ public class AlbumTest {
 		
 	}
 
-	@Test
-	public void testDeleteAlbum() {
-		a = new Album("myAlbum");
-		b = new Album("Album2");
-		file = new SoundClip(new File("song.waw"));
-		b.addToAlbum(file);
-		a.addToAlbum(file);
-		Main.allSongs.addToAlbum(file);
-		Main.allAlbums.add(a);
-		Main.allAlbums.add(b);
-		a.setchildrenAlbums(b);
-		b.setParent(a);
-		a.setParent(null);
-		Main.allAlbums.add(a);
-		a.deleteAlbum();
-		assertTrue(Main.allAlbums.contains(a));
-	}
+//	@Test
+//	public void testDeleteAlbum() {
+//		a = new Album("myAlbum");
+//		b = new Album("Album2");
+//		file = new SoundClip(new File("song.waw"));
+//		b.addToAlbum(file);
+//		a.addToAlbum(file);
+//		Main.allSongs.addToAlbum(file);
+//		Main.allAlbums.add(a);
+//		Main.allAlbums.add(b);
+//		a.setchildrenAlbums(b);
+//		b.setParent(a);
+//		a.setParent(null);
+//		Main.allAlbums.add(a);
+//		a.deleteAlbum();
+//		assertTrue(Main.allAlbums.contains(a));
+//	}
 
 }
