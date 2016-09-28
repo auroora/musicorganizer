@@ -101,6 +101,9 @@ public class Album {
 		return subAlbums;
 	}
 	
-
+	public String toString(){
+		return name;
+		
+	}
 	
 }
