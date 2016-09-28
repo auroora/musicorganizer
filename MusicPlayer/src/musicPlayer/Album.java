@@ -8,8 +8,8 @@ import java.util.Set;
 public class Album {
 	private Album parentAlbum;
 	private String name;
-	public ArrayList<Album> childrenAlbums;
-	HashSet<SoundClip> songList;
+	private ArrayList<Album> childrenAlbums;
+	private HashSet<SoundClip> songList;
 	
 	
 	
@@ -18,7 +18,7 @@ public class Album {
 		name = albumName;
 		songList = new HashSet<SoundClip>();
 		childrenAlbums = new ArrayList<Album>();
-		Main.allAlbums.add(this);
+//		Main.allAlbums.add(this);
 	}
 	
 	public void setParent(Album album){

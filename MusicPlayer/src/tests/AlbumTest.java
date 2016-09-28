@@ -7,8 +7,6 @@ import java.io.File;
 import org.junit.Test;
 
 import musicPlayer.Album;
-import musicPlayer.Main;
-import musicPlayer.Organizer;
 import musicPlayer.SoundClip;
 
 public class AlbumTest {
