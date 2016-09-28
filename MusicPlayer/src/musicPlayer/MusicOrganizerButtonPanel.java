@@ -92,7 +92,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		addSoundClipButton.setToolTipText("Add Selected Sound Clips To Selected Album");
 		addSoundClipButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				controller.addSoundClips();
+				controller.addSoundClips(view.getSelectedAlbum());
 
 			}
 		});
