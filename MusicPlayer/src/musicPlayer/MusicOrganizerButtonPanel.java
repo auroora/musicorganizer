@@ -105,7 +105,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		removeSoundClipsButton.setToolTipText("Remove Selected Sound Clips From Selected Album");
 		removeSoundClipsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.removeSoundClips();
+				controller.removeSoundClips(view.getSelectedAlbum());
 			}
 		});
 		return removeSoundClipsButton;

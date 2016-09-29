@@ -18,7 +18,6 @@ public class Album {
 		name = albumName;
 		songList = new HashSet<SoundClip>();
 		childrenAlbums = new ArrayList<Album>();
-//		Main.allAlbums.add(this);
 	}
 	
 	public void setParent(Album album){
