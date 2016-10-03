@@ -1,4 +1,5 @@
 package musicPlayer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -94,12 +95,22 @@ public class MusicOrganizerController {
 	/**
 	 * Removes sound clips from an album
 	 */
-	public void removeSoundClips(){ //TODO Update parameters if needed
+	public void removeSoundClips(Album album){ //TODO Update parameters if needed
 		// TODO: Add your code here
+		if (album.getChildrenAlbums().size()>0) {
+			ArrayList<Album> subAlbums = new ArrayList<Album>();
+			subAlbums = album.getAllChildren(album, subAlbums);
+			for (int i=0;i<subAlbums.size();i++){
+				for (int j=0;j<view.getSelectedSoundClips().size();j++){
+				subAlbums.get(i).removeFromAlbum(view.getSelectedSoundClips().get(j));
+				}
+				}
+		}
 		
 		for (int i=0;i<view.getSelectedSoundClips().size();i++){
 		view.getSelectedAlbum().removeFromAlbum(view.getSelectedSoundClips().get(i));
 		}
+		
 		view.onClipsUpdated();
 	}
 	
