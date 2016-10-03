@@ -114,4 +114,14 @@ public class MusicOrganizerController {
 		for(int i=0;i<l.size();i++)
 			queue.enqueue(l.get(i));
 	}
+
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void redo() {
+		// TODO Auto-generated method stub
+		
+	}
 }
