@@ -20,6 +20,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton playButton;
 	private JButton undoButton;
 	private JButton redoButton;
+	public static newAlbumCommand addnewAlbumCommand;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -76,7 +77,10 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		newAlbumButton.setToolTipText("New Album");
 		newAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.addNewAlbum();
+//				controller.addNewAlbum();
+				addnewAlbumCommand=new newAlbumCommand();
+				
+				addnewAlbumCommand.execute();
 			}
 		});
 		return newAlbumButton;
