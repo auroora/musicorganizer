@@ -21,6 +21,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton undoButton;
 	private JButton redoButton;
 	public static newAlbumCommand addnewAlbumCommand;
+	public static deleteAlbumCommand deleteAlbumCommand;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -92,7 +93,9 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		deleteAlbumButton.setToolTipText("Delete Selected Album");
 		deleteAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.deleteAlbum();
+//				controller.deleteAlbum();
+				deleteAlbumCommand=new deleteAlbumCommand();
+				deleteAlbumCommand.execute();
 			}
 		});
 		return deleteAlbumButton;

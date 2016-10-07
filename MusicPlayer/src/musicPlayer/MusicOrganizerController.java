@@ -89,6 +89,8 @@ public class MusicOrganizerController {
 	public static void deleteAlbum(){ //changed to static
 		//TODO Update parameters if needed
 		// TODO: Add your code here
+		MusicOrganizerButtonPanel.deleteAlbumCommand.saveHistory(view.getSelectedAlbum());
+		MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.deleteAlbumCommand);
 		view.onAlbumRemoved(view.getSelectedAlbum());
 //		view.onAlbumRemoved(albumHistory.poll());
 	}
@@ -152,7 +154,7 @@ public class MusicOrganizerController {
 		try {
 			Command command = executeCommandHistory.poll();
 			System.out.println("command History size:"+executeCommandHistory.size());
-			System.out.println("undo "+(newAlbumCommand)command);
+			System.out.println("undo "+command);
 			command.undo();
 			undoCommandHistory.addFirst(command);
 		} catch (NullPointerException e) {
@@ -164,8 +166,10 @@ public class MusicOrganizerController {
 		// TODO Auto-generated method stub
 		try {
 			Command  command = undoCommandHistory.poll();
+			System.out.println("command History size:"+executeCommandHistory.size());
+			System.out.println("undo "+command);
 			command.redo();
-			executeCommandHistory.addFirst(command);
+//			executeCommandHistory.addFirst(command);
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			
