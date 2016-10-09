@@ -15,6 +15,8 @@ public class MusicOrganizerController {
 	public static LinkedList<Command> executeCommandHistory; 
 	public static LinkedList<Command> undoCommandHistory; 
 	
+	private static addnewAlbumCommand addnewAlbum = new addnewAlbumCommand();
+	
 	public MusicOrganizerController() {
 		
 		// TODO: Create the root album for all sound clips
@@ -61,26 +63,28 @@ public class MusicOrganizerController {
 		//TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
 		
-		try {
-			
-			Album album=new Album(view.promptForAlbumName());
-			album.setParent(view.getSelectedAlbum());
-			view.getSelectedAlbum().setchildrenAlbums(album);
-			view.onAlbumAdded(album);
-			
-			//save information
-			MusicOrganizerButtonPanel.addnewAlbumCommand.saveHistory(album);
-			System.out.println("added album "+MusicOrganizerButtonPanel.addnewAlbumCommand);
-			MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.addnewAlbumCommand);
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-			
-			JOptionPane.showMessageDialog(null, "Please select folder");
-			
-			
-			return;
-		}
+//		try {
+//			
+//			Album album=new Album(view.promptForAlbumName());
+//			album.setParent(view.getSelectedAlbum());
+//			view.getSelectedAlbum().setchildrenAlbums(album);
+//			view.onAlbumAdded(album);
+//			
+//			//save information
+//			MusicOrganizerButtonPanel.addnewAlbumCommand.saveHistory(album);
+//			System.out.println("added album "+MusicOrganizerButtonPanel.addnewAlbumCommand);
+//			MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.addnewAlbumCommand);
+//		} catch (NullPointerException e) {
+//			// TODO Auto-generated catch block
+////			e.printStackTrace();
+//			
+//			JOptionPane.showMessageDialog(null, "Please select folder");
+//			
+//			
+//			return;
+//		}
+		addnewAlbum.execute();
+		
 	}
 	
 	/**
@@ -89,13 +93,11 @@ public class MusicOrganizerController {
 	public static void deleteAlbum(){ //changed to static
 		//TODO Update parameters if needed
 		// TODO: Add your code here
-		MusicOrganizerButtonPanel.deleteAlbumCommand.saveHistory(view.getSelectedAlbum());
-		MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.deleteAlbumCommand);
-		view.onAlbumRemoved(view.getSelectedAlbum());
-//		view.onAlbumRemoved(albumHistory.poll());
+		addnewAlbum = new addnewAlbumCommand(view.getSelectedAlbum());
+		addnewAlbum.undo();
 	}
-	public static void deleteAlbumWithUndo(){
-	}
+//	public static void deleteAlbumWithUndo(){
+//	}
 	
 	/**
 	 * Adds sound clips to an album

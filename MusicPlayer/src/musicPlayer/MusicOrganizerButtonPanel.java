@@ -20,8 +20,8 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton playButton;
 	private JButton undoButton;
 	private JButton redoButton;
-	public static newAlbumCommand addnewAlbumCommand;
-	public static deleteAlbumCommand deleteAlbumCommand;
+//	public static newAlbumCommand addnewAlbumCommand;
+//	public static deleteAlbumCommand deleteAlbumCommand;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
