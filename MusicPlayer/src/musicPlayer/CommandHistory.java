@@ -3,7 +3,6 @@ package musicPlayer;
 public class CommandHistory {
 	Command[] undoCommands;
 	Command[] redoCommands;
-//	Command undoCommand
 	Command noCommand = new NoCommand();
 	static int currentSlot;
 	static int currentSlot2;
@@ -11,7 +10,6 @@ public class CommandHistory {
 	public CommandHistory() {
 		undoCommands = new Command[10];
 		redoCommands = new Command[10];
-//	Command noCommand = new NoCommand();
 	for(int i=0;i<10;i++){
 		undoCommands[i] = noCommand;
 		redoCommands[i] = noCommand;

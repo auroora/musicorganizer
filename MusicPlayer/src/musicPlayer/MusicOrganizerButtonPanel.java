@@ -20,9 +20,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton playButton;
 	private JButton undoButton;
 	private JButton redoButton;
-//	public static newAlbumCommand addnewAlbumCommand;
-//	public static deleteAlbumCommand deleteAlbumCommand;
-	public static CommandHistory commandHistory;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -80,9 +77,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		newAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.addNewAlbum();
-//				addnewAlbumCommand=new newAlbumCommand();
-				
-//				addnewAlbumCommand.execute();
 			}
 		});
 		return newAlbumButton;
@@ -95,8 +89,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		deleteAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.deleteAlbum();
-//				deleteAlbumCommand=new deleteAlbumCommand();
-//				deleteAlbumCommand.execute();
 			}
 		});
 		return deleteAlbumButton;

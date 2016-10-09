@@ -95,6 +95,7 @@ public class MusicOrganizerWindow extends JFrame {
 					// TODO YOUR CODE HERE
 					// The code here gets invoked whenever the user double clicks in the album tree
 //					
+					//Selects root when starting the program
 					clipTable.display(getSelectedAlbum());
 					
 					
