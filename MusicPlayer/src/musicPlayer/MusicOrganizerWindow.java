@@ -84,6 +84,8 @@ public class MusicOrganizerWindow extends JFrame {
 				.setSelectionMode(DefaultTreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setSelectionModel(selectionModel);
 
+			tree.setSelectionRow(0);
+
 		tree.addMouseListener(new MouseInputAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -94,6 +96,7 @@ public class MusicOrganizerWindow extends JFrame {
 					// The code here gets invoked whenever the user double clicks in the album tree
 //					
 					clipTable.display(getSelectedAlbum());
+					
 					
 					System.out.println("show the sound clips for album " + getSelectedTreeNode().getUserObject());
 				}
@@ -229,6 +232,11 @@ public class MusicOrganizerWindow extends JFrame {
 					model.removeNodeFromParent(current);
 				}
 			}
+		}
+
+		//If nothing is selected, select root
+		if(albumTree.getRowCount()==0 || albumTree.getSelectionCount() == 0) {
+		albumTree.setSelectionRow(0);
 		}
 	}
 	

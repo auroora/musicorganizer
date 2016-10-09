@@ -78,9 +78,12 @@ public class CommandHistory {
 	}
 	
 	public void undoPressed(){
-		undoCommands[currentSlot].undo();
-		setRedoCommand(undoCommands[currentSlot]);
-		undoCommands[currentSlot] = noCommand;
+		if (currentSlot == 0) {
+			return;
+		}
+		undoCommands[currentSlot-1].undo();
+		setRedoCommand(undoCommands[currentSlot-1]);
+		undoCommands[currentSlot-1] = noCommand;
 		if(currentSlot>0) {
 		currentSlot = currentSlot -1;
 		}
@@ -90,9 +93,12 @@ public class CommandHistory {
 	}
 	
 	public void redoPressed(){
-		redoCommands[currentSlot2].execute();
-		setUndoCommand(redoCommands[currentSlot2]);
-		redoCommands[currentSlot2] = noCommand;
+		if (currentSlot2 == 0) {
+			return;
+		}
+		redoCommands[currentSlot2-1].execute();
+		setUndoCommand(redoCommands[currentSlot2-1]);
+		redoCommands[currentSlot2-1] = noCommand;
 		if(currentSlot2>0) {
 		currentSlot2 = currentSlot2 -1;
 		}
