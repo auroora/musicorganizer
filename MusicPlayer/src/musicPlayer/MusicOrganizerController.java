@@ -113,16 +113,10 @@ public class MusicOrganizerController {
 	 */
 	public void addSoundClips(Album album){ //TODO Update parameters if needed
 		// TODO: Add your code here
-		for (int i=0;i<view.getSelectedSoundClips().size();i++){
-				if (!album.getParent().getSongs().contains(view.getSelectedSoundClips().get(i))) {
-					album.getParent().addToAlbum(view.getSelectedSoundClips().get(i));
-				}
-			view.getSelectedAlbum().addToAlbum(view.getSelectedSoundClips().get(i));
-		}
-		if (!album.getParent().equals(getRootAlbum())) {
-		addSoundClips(album.getParent());
-		}
-		view.onClipsUpdated();
+		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
+		AddSoundClipsCommand addSoundClips = new AddSoundClipsCommand(view, album, this, sounds);
+		addSoundClips.execute();
+		commandHistory.setUndoCommand(addSoundClips);
 		
 	}
 	
@@ -131,21 +125,10 @@ public class MusicOrganizerController {
 	 */
 	public void removeSoundClips(Album album){ //TODO Update parameters if needed
 		// TODO: Add your code here
-		if (album.getChildrenAlbums().size()>0) {
-			ArrayList<Album> subAlbums = new ArrayList<Album>();
-			subAlbums = album.getAllChildren(album, subAlbums);
-			for (int i=0;i<subAlbums.size();i++){
-				for (int j=0;j<view.getSelectedSoundClips().size();j++){
-				subAlbums.get(i).removeFromAlbum(view.getSelectedSoundClips().get(j));
-				}
-				}
-		}
-		
-		for (int i=0;i<view.getSelectedSoundClips().size();i++){
-		view.getSelectedAlbum().removeFromAlbum(view.getSelectedSoundClips().get(i));
-		}
-		
-		view.onClipsUpdated();
+		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
+		RemoveSoundClipsCommand removeSoundClips = new RemoveSoundClipsCommand(view, album, sounds);
+		removeSoundClips.execute();
+		commandHistory.setUndoCommand(removeSoundClips);
 	}
 	
 	/**
