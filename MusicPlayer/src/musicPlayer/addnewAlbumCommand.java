@@ -16,8 +16,7 @@ public class addnewAlbumCommand implements Command {
 	public void execute() {
 try {
 		
-			album=new Album(MusicOrganizerController.view.promptForAlbumName());
-			album.setParent(MusicOrganizerController.view.getSelectedAlbum());
+			album.setParent(window.getSelectedAlbum());
 			window.getSelectedAlbum().setchildrenAlbums(album);
 			window.onAlbumAdded(album);
 			

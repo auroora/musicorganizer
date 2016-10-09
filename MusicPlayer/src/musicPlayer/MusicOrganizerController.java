@@ -14,7 +14,7 @@ public class MusicOrganizerController {
 	//this is new:
 //	public static LinkedList<Command> executeCommandHistory; 
 //	public static LinkedList<Command> undoCommandHistory; 
-	CommandHistory commandHistory = new CommandHistory();
+	CommandHistory commandHistory;
 	
 //	private static addnewAlbumCommand addnewAlbum = new addnewAlbumCommand();
 	
@@ -28,6 +28,8 @@ public class MusicOrganizerController {
 		
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
+		
+		commandHistory = new CommandHistory();
 		
 		//this is new:
 //		executeCommandHistory = new LinkedList<Command>();	
@@ -63,9 +65,11 @@ public class MusicOrganizerController {
 	public void addNewAlbum(){ //changed to static
 		//TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
-		
-//		try {
-//			
+		String name = view.promptForAlbumName();
+		Album newAlbum = new Album(name);
+		addnewAlbumCommand addnewAlbum = new addnewAlbumCommand(newAlbum, view);
+		try {
+			
 //			Album album=new Album(view.promptForAlbumName());
 //			album.setParent(view.getSelectedAlbum());
 //			view.getSelectedAlbum().setchildrenAlbums(album);
@@ -75,18 +79,18 @@ public class MusicOrganizerController {
 //			MusicOrganizerButtonPanel.addnewAlbumCommand.saveHistory(album);
 //			System.out.println("added album "+MusicOrganizerButtonPanel.addnewAlbumCommand);
 //			MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.addnewAlbumCommand);
-//		} catch (NullPointerException e) {
-//			// TODO Auto-generated catch block
-////			e.printStackTrace();
-//			
-//			JOptionPane.showMessageDialog(null, "Please select folder");
-//			
-//			
-//			return;
-//		}
-		Album emptyAlbum = new Album("");
-		addnewAlbumCommand addnewAlbum = new addnewAlbumCommand(emptyAlbum, view);
-		addnewAlbum.execute();
+			
+			addnewAlbum.execute();
+			
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(null, "Please select folder");
+			
+			
+			return;
+		}
 		commandHistory.setUndoCommand(addnewAlbum);
 		
 	}

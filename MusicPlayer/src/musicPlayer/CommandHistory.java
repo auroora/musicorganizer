@@ -5,8 +5,8 @@ public class CommandHistory {
 	Command[] redoCommands;
 //	Command undoCommand
 	Command noCommand = new NoCommand();
-	static int currentSlot = 0;
-	static int currentSlot2 = 0;
+	static int currentSlot;
+	static int currentSlot2;
 	
 	public CommandHistory() {
 		undoCommands = new Command[10];
@@ -16,6 +16,8 @@ public class CommandHistory {
 		undoCommands[i] = noCommand;
 		redoCommands[i] = noCommand;
 		}
+	currentSlot = 0;
+	currentSlot2 = 0;
 	}
 	
 	public void setUndoCommand(Command command) {
@@ -31,7 +33,7 @@ public class CommandHistory {
 		if (emptySlots = true) {
 			undoCommands[currentSlot] = command;
 			if (currentSlot <8) {
-			currentSlot = currentSlot++;
+			currentSlot = currentSlot+1;
 			}
 			else {
 				currentSlot = 9;
@@ -43,13 +45,14 @@ public class CommandHistory {
 			}
 			undoCommands[9] = command;
 		}
+		System.out.println("Current slot: " + currentSlot);
 		
 	}
 	
 	public void setRedoCommand(Command command) {
 		boolean emptySlots = false;
 		for(int i = 0;i<10;i++) {
-			if (undoCommands[i].equals(noCommand)) {
+			if (redoCommands[i].equals(noCommand)) {
 				emptySlots = true;
 			}
 			else {
@@ -57,9 +60,9 @@ public class CommandHistory {
 			}
 		}
 		if (emptySlots = true) {
-			undoCommands[currentSlot2] = command;
+			redoCommands[currentSlot2] = command;
 			if (currentSlot2 <8) {
-			currentSlot2 = currentSlot2++;
+			currentSlot2 = currentSlot2+1;
 			}
 			else {
 				currentSlot2 = 9;
@@ -67,9 +70,9 @@ public class CommandHistory {
 		}
 		else {
 			for (int i = 0;i<9;i++) {
-				undoCommands[i] = undoCommands[i+1];
+				redoCommands[i] = redoCommands[i+1];
 			}
-			undoCommands[9] = command;
+			redoCommands[9] = command;
 		}
 		
 	}
@@ -90,11 +93,11 @@ public class CommandHistory {
 		redoCommands[currentSlot2].execute();
 		setUndoCommand(redoCommands[currentSlot2]);
 		redoCommands[currentSlot2] = noCommand;
-		if(currentSlot>0) {
-		currentSlot = currentSlot -1;
+		if(currentSlot2>0) {
+		currentSlot2 = currentSlot2 -1;
 		}
 		else{
-			currentSlot = 0;
+			currentSlot2 = 0;
 		}
 	}
 	
