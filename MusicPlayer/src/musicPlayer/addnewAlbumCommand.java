@@ -5,21 +5,21 @@ import javax.swing.JOptionPane;
 public class addnewAlbumCommand implements Command {
 	
 	Album album;
-	MusicOrganizerController controller = new MusicOrganizerController();
-	MusicOrganizerWindow view = new MusicOrganizerWindow(controller);
+	MusicOrganizerWindow window;
 	
-	public addnewAlbumCommand(Album albumInput) {
+	public addnewAlbumCommand(Album albumInput, MusicOrganizerWindow view) {
 		album = albumInput;
+		window = view;
 	}
 
 	@Override
 	public void execute() {
 try {
 		
-			album=new Album(view.promptForAlbumName());
-			album.setParent(view.getSelectedAlbum());
-			view.getSelectedAlbum().setchildrenAlbums(album);
-			view.onAlbumAdded(album);
+			album=new Album(MusicOrganizerController.view.promptForAlbumName());
+			album.setParent(MusicOrganizerController.view.getSelectedAlbum());
+			window.getSelectedAlbum().setchildrenAlbums(album);
+			window.onAlbumAdded(album);
 			
 			//save information
 //			saveHistory(album);
@@ -40,7 +40,7 @@ try {
 	public void undo() {
 //		MusicOrganizerButtonPanel.deleteAlbumCommand.saveHistory(view.getSelectedAlbum());
 //		MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.deleteAlbumCommand);
-		view.onAlbumRemoved(album);
+		window.onAlbumRemoved(album);
 	}
 	
 	
