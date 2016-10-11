@@ -138,6 +138,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.undo();
+//				controller.undoPressed(slot);
 			}
 		});
 		return undoButton;

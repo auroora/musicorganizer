@@ -1,5 +1,6 @@
 package musicPlayer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -7,9 +8,15 @@ import javax.swing.JOptionPane;
 
 public class MusicOrganizerController {
 
-	private MusicOrganizerWindow view;
+	public static MusicOrganizerWindow view;//changed from private
 	private SoundClipBlockingQueue queue;
 	private Album root;
+	//this is new:
+//	public static LinkedList<Command> executeCommandHistory; 
+//	public static LinkedList<Command> undoCommandHistory; 
+	CommandHistory commandHistory;
+	
+//	private static addnewAlbumCommand addnewAlbum = new addnewAlbumCommand();
 	
 	public MusicOrganizerController() {
 		
@@ -21,6 +28,12 @@ public class MusicOrganizerController {
 		
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
+		
+		commandHistory = new CommandHistory();
+		
+		//this is new:
+//		executeCommandHistory = new LinkedList<Command>();	
+//		undoCommandHistory = new LinkedList<Command>();
 		
 		// Create a separate thread for the sound clip player and start it
 		(new Thread(new SoundClipPlayer(queue))).start();
@@ -49,46 +62,61 @@ public class MusicOrganizerController {
 	/**
 	 * Adds an album to the Music Organizer
 	 */
-	public void addNewAlbum(){ //TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
+	public void addNewAlbum(){ //changed to static
+		//TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
-		
+		String name = view.promptForAlbumName();
+		Album newAlbum = new Album(name);
+		addnewAlbumCommand addnewAlbum = new addnewAlbumCommand(newAlbum, view);
 		try {
-			Album album=new Album(view.promptForAlbumName());
-			album.setParent(view.getSelectedAlbum());
-			view.getSelectedAlbum().setchildrenAlbums(album);
-			view.onAlbumAdded(album);
+			
+//			Album album=new Album(view.promptForAlbumName());
+//			album.setParent(view.getSelectedAlbum());
+//			view.getSelectedAlbum().setchildrenAlbums(album);
+//			view.onAlbumAdded(album);
+//			
+//			//save information
+//			MusicOrganizerButtonPanel.addnewAlbumCommand.saveHistory(album);
+//			System.out.println("added album "+MusicOrganizerButtonPanel.addnewAlbumCommand);
+//			MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.addnewAlbumCommand);
+			
+			addnewAlbum.execute();
+			
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
 			
 			JOptionPane.showMessageDialog(null, "Please select folder");
+			
+			
 			return;
 		}
+		commandHistory.setUndoCommand(addnewAlbum);
+		
 	}
 	
 	/**
 	 * Removes an album from the Music Organizer
 	 */
-	public void deleteAlbum(){ //TODO Update parameters if needed
+	public void deleteAlbum(){ //changed to static
+		//TODO Update parameters if needed
 		// TODO: Add your code here
-		view.onAlbumRemoved(view.getSelectedAlbum());
+		DeleteAlbumCommand deleteAlbum = new DeleteAlbumCommand(view.getSelectedAlbum(), view);
+		deleteAlbum.execute();
+		commandHistory.setUndoCommand(deleteAlbum);
 	}
+//	public static void deleteAlbumWithUndo(){
+//	}
 	
 	/**
 	 * Adds sound clips to an album
 	 */
 	public void addSoundClips(Album album){ //TODO Update parameters if needed
 		// TODO: Add your code here
-		for (int i=0;i<view.getSelectedSoundClips().size();i++){
-				if (!album.getParent().getSongs().contains(view.getSelectedSoundClips().get(i))) {
-					album.getParent().addToAlbum(view.getSelectedSoundClips().get(i));
-				}
-			view.getSelectedAlbum().addToAlbum(view.getSelectedSoundClips().get(i));
-		}
-		if (!album.getParent().equals(getRootAlbum())) {
-		addSoundClips(album.getParent());
-		}
-		view.onClipsUpdated();
+		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
+		AddSoundClipsCommand addSoundClips = new AddSoundClipsCommand(view, album, this, sounds);
+		addSoundClips.execute();
+		commandHistory.setUndoCommand(addSoundClips);
 		
 	}
 	
@@ -97,21 +125,10 @@ public class MusicOrganizerController {
 	 */
 	public void removeSoundClips(Album album){ //TODO Update parameters if needed
 		// TODO: Add your code here
-		if (album.getChildrenAlbums().size()>0) {
-			ArrayList<Album> subAlbums = new ArrayList<Album>();
-			subAlbums = album.getAllChildren(album, subAlbums);
-			for (int i=0;i<subAlbums.size();i++){
-				for (int j=0;j<view.getSelectedSoundClips().size();j++){
-				subAlbums.get(i).removeFromAlbum(view.getSelectedSoundClips().get(j));
-				}
-				}
-		}
-		
-		for (int i=0;i<view.getSelectedSoundClips().size();i++){
-		view.getSelectedAlbum().removeFromAlbum(view.getSelectedSoundClips().get(i));
-		}
-		
-		view.onClipsUpdated();
+		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
+		RemoveSoundClipsCommand removeSoundClips = new RemoveSoundClipsCommand(view, album, sounds);
+		removeSoundClips.execute();
+		commandHistory.setUndoCommand(removeSoundClips);
 	}
 	
 	/**
@@ -128,11 +145,34 @@ public class MusicOrganizerController {
 
 	public void undo() {
 		// TODO Auto-generated method stub
-		
+//		try {
+//			Command command = executeCommandHistory.poll();
+//			System.out.println("command History size:"+executeCommandHistory.size());
+//			System.out.println("undo "+command);
+//			command.undo();
+//			undoCommandHistory.addFirst(command);
+//		} catch (NullPointerException e) {
+//			// TODO Auto-generated catch block
+//		}
+		commandHistory.undoPressed();
 	}
 
 	public void redo() {
 		// TODO Auto-generated method stub
-		
+//		try {
+//			Command  command = undoCommandHistory.poll();
+//			System.out.println("command History size:"+executeCommandHistory.size());
+//			System.out.println("undo "+command);
+////			command.redo();
+////			executeCommandHistory.addFirst(command);
+//		} catch (NullPointerException e) {
+//			// TODO Auto-generated catch block
+//			
+//		}
+		commandHistory.redoPressed();
 	}
+//	public static void addToCommandHistory(Command command){
+//		executeCommandHistory.addFirst(command);
+//		System.out.println("command History size:"+ executeCommandHistory.size());
+//	}
 }
