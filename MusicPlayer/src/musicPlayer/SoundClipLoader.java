@@ -41,6 +41,8 @@ public class SoundClipLoader {
 		for (File g: findSubFolders(folder)) {
 			addSoundClipsToSet(g, set);
 		}
+		
+		
 	}
 	
 	// Return all the WAV files that are immediate children of folder.

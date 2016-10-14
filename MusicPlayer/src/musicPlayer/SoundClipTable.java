@@ -28,7 +28,8 @@ public class SoundClipTable extends JList {
 		//
 		// Something like this:
 		//
-		// clips.addAll(a.getAllSoundClips());
+		 clips.addAll(a.getSongs());
+		 
 		
 		Object[] data = new Object[clips.size()];
 		Iterator<SoundClip> it = clips.iterator();

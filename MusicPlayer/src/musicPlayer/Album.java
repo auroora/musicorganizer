@@ -2,21 +2,22 @@ package musicPlayer;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Album {
 	private Album parentAlbum;
 	private String name;
-	public ArrayList<Album> childrenAlbums;
-	ArrayList<SoundClip> songList;
+	private ArrayList<Album> childrenAlbums;
+	private HashSet<SoundClip> songList;
 	
 	
 	
 	
 	public Album(String albumName) {
 		name = albumName;
-		songList = new ArrayList<SoundClip>();
+		songList = new HashSet<SoundClip>();
 		childrenAlbums = new ArrayList<Album>();
-		Main.allAlbums.add(this);
 	}
 	
 	public void setParent(Album album){
@@ -41,7 +42,7 @@ public class Album {
 		return name;
 	}
 	
-	public ArrayList<SoundClip> getSongs(){
+	public HashSet<SoundClip> getSongs(){
 		return songList;
 	}
 	
@@ -52,18 +53,12 @@ public class Album {
 		}
 	}
 	
-	public void removeFromAlbum(SoundClip sound){		//Tar bort en låt från albumet
+	public void removeFromAlbum(SoundClip sound){		//Tar bort en lï¿½t frï¿½n albumet
 //		sound.albumList.remove(this);
-		int songIndex = songList.indexOf(sound);
-		if (songIndex != -1) {
-		songList.remove(songIndex);
-		}
-		if (getChildrenAlbums().size()>0) {		//Tar bort låten även från alla children album
+		songList.remove(sound);
+		if (getChildrenAlbums().size()>0) {		//Tar bort lï¿½ten ï¿½ven frï¿½n alla children album
 			ArrayList<Album> subAlbums = new ArrayList<Album>();
 			subAlbums = getAllChildren(this, subAlbums);
-//				if (sound.albumList.contains(getChildrenAlbums().get(i))) {
-//					sound.albumList.remove(getChildrenAlbums().get(i));
-//				}
 				for (int j = 0;j<subAlbums.size();j++){
 					subAlbums.get(j).songList.remove(sound);
 				}
@@ -71,24 +66,14 @@ public class Album {
 			
 		}
 	
-	public void deleteAlbum() {			//Tar bort ett helt album
-		ArrayList<Album> subAlbums = new ArrayList<Album>();
-		subAlbums = getAllChildren(this, subAlbums);
-		for(int i = 0;i<songList.size();i++){
-			removeFromAlbum(songList.get(i));
-			if (subAlbums.size()>0) {
-			for (int j = 0;j<Main.allAlbums.size();j++){		//Tar bort alla children albums från listan med alla album
-				for (int k = 0; k<subAlbums.size();k++){
-					Main.allAlbums.remove(subAlbums.get(k));
-				}
-			}
-			}
-		}
-		if (getParent() != null) {
-		getParent().getChildrenAlbums().remove(this);
-			Main.allAlbums.remove(this);
-		}
-	}
+//	public void deleteAlbum() {			//Tar bort ett helt album
+//		ArrayList<Album> subAlbums = new ArrayList<Album>();
+//		subAlbums = getAllChildren(this, subAlbums);
+//		if (getParent() != null) {
+//		getParent().getChildrenAlbums().remove(this);
+//			Main.allAlbums.remove(this);
+//		}
+//	}
 	
 
 	public ArrayList<Album> getAllChildren(Album album, ArrayList<Album> subAlbums) {
@@ -99,6 +84,11 @@ public class Album {
 		}
 	}
 		return subAlbums;
+	}
+	
+	@Override
+	public String toString() {
+	    return this.name;
 	}
 	
 
