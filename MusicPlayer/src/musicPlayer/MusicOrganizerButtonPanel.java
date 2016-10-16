@@ -22,7 +22,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton undoButton;
 	private JButton redoButton;
 	private JButton flagButton;
-	private JComboBox<Integer> ratingList;
+	private JComboBox<String> ratingList;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -176,16 +176,17 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		return flag;
 	}
 
-	private JComboBox<Integer> createRatingList() {
+	private JComboBox<String> createRatingList() {
 		// TODO Auto-generated method stub
-		Integer[] ratingListIntegers = {null,1,2,3,4,5};
-		JComboBox<Integer> ratingList = new JComboBox<Integer>(ratingListIntegers);
+		String[] ratingListIntegers = {"Set rating","*","**","***","****","*****"};
+		JComboBox<String> ratingList = new JComboBox<String>(ratingListIntegers);
 		ratingList.setSelectedIndex(0);
 		ratingList.setToolTipText("Select rating");
 		ratingList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				controller.rate((Integer)ratingList.getSelectedItem());
+				controller.rate((Integer)ratingList.getSelectedIndex());
+				view.onClipsUpdated();
+				ratingList.setSelectedIndex(0);
 			}
 		});
 		return ratingList;

@@ -46,7 +46,7 @@ public class SoundClip {
 	}
 	
 	public String toString(){
-		return file.getName();
+		return file.getName()+" rating: "+this.rating;
 	}
 	
 	@Override
