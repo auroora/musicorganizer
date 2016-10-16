@@ -9,7 +9,8 @@ import java.util.ArrayList;
  * sound clip file on disk.
  */
 public class SoundClip {
-
+	public boolean flagged;
+	public int rating;
 	private final File file;
 	
 	/**
@@ -19,6 +20,22 @@ public class SoundClip {
 	public SoundClip(File file) {
 		assert file != null;
 		this.file = file;
+	}
+
+	public boolean isFlagged() {
+		return flagged;
+	}
+
+	public void setFlagged(boolean flagged) {
+		this.flagged = flagged;
+	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	/**

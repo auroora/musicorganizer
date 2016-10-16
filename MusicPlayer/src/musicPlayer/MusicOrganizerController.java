@@ -175,4 +175,16 @@ public class MusicOrganizerController {
 //		executeCommandHistory.addFirst(command);
 //		System.out.println("command History size:"+ executeCommandHistory.size());
 //	}
+
+	public void flag() {
+		// TODO Auto-generated method stub
+		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
+		for(SoundClip i:sounds)i.setFlagged(true);
+	}
+
+	public void rate(Integer rating) {
+		// TODO Auto-generated method stub
+		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
+		for(SoundClip i:sounds)i.setRating(rating);
+	}
 }
