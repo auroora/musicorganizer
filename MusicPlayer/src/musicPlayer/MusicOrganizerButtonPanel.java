@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -20,6 +21,8 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton playButton;
 	private JButton undoButton;
 	private JButton redoButton;
+	private JButton flagButton;
+	private JComboBox<String> ratingList;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -52,10 +55,17 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		redoButton = createRedoButton();
 		toolbar.add(redoButton);
 		
+		flagButton = createFlagButton();
+		toolbar.add(flagButton);
+		
+		ratingList = createRatingList();
+		toolbar.add(ratingList);
+		
 		this.add(toolbar);
 
 	}
 	
+
 	/**
 	 * Note: You can replace the text strings in the instantiations of the JButtons
 	 * below with ImageIcons if you prefer to have buttons with icons instead of
@@ -155,5 +165,30 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		});
 		return redoButton;
 	}
+	private JButton createFlagButton(){
+		JButton flag = new JButton("Flag"); 
+		redoButton.setToolTipText("Flag selected music");
+		redoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.flag();
+			}
+		});
+		return flag;
+	}
 
+	private JComboBox<String> createRatingList() {
+		// TODO Auto-generated method stub
+		String[] ratingListIntegers = {"Set rating","*","**","***","****","*****"};
+		JComboBox<String> ratingList = new JComboBox<String>(ratingListIntegers);
+		ratingList.setSelectedIndex(0);
+		ratingList.setToolTipText("Select rating");
+		ratingList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.rate((Integer)ratingList.getSelectedIndex());
+				view.onClipsUpdated();
+				ratingList.setSelectedIndex(0);
+			}
+		});
+		return ratingList;
+	}
 }
