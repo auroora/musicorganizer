@@ -232,37 +232,7 @@ public class MusicOrganizerWindow extends JFrame {
 			}
 		}
 	}
-	
-	public void onSpecialAlbumAdded(SearchBasedAlbum newAlbum){
-		
-		assert newAlbum != null;
-		
-		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
-		
-		//We search for the parent of the newly added Album so we can create the new node in the correct place
-		for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){
-			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) e.nextElement();
-			
-			// TODO: Get the parent album of newAlbum
-			Album parentAlbum; 
-			parentAlbum = newAlbum.getParent();
-			System.out.println(newAlbum.getParent() + " getparent");
-			System.out.println(parentAlbum + " parentAlbum");
-			System.out.println(parent + " PARENT");
-			
-			
-			if(parentAlbum.equals(parent.getUserObject())){
-				
-				DefaultMutableTreeNode trnode = new DefaultMutableTreeNode();
-				trnode.setUserObject(newAlbum);
-				
-				model.insertNodeInto(trnode, parent,
-						parent.getChildCount());
-				albumTree.scrollPathToVisible(new TreePath(trnode.getPath()));
-				
-			}
-		}
-	}
+
 	
 	/**
 	 * Updates the album hierarchy by removing an album from it
