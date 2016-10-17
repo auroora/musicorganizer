@@ -11,8 +11,9 @@ public class RatedSongsAlbum extends Album{
 	void getSongs(Album allSongs) {
 		Iterator <SoundClip> songs = allSongs.getSongs().iterator();
 		while (songs.hasNext()) {
-			if (songs.next().getRating() > 3) {
-				songList.add(songs.next());
+			SoundClip temp = songs.next();
+			if (temp.getRating() >3) {
+				songList.add(temp);
 			}
 		}
 		
