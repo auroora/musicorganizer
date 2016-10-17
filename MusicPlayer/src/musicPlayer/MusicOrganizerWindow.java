@@ -71,7 +71,6 @@ public class MusicOrganizerWindow extends JFrame {
 
 		DefaultMutableTreeNode tree_root = new DefaultMutableTreeNode();
 		tree_root.setUserObject((Album) controller.getRootAlbum());
-		
 		final JTree tree = new JTree(tree_root);
 		tree.setMinimumSize(new Dimension(200, 400));
 		
@@ -101,11 +100,28 @@ public class MusicOrganizerWindow extends JFrame {
 					
 					System.out.println("show the sound clips for album " + getSelectedTreeNode().getUserObject());
 				}
+				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1) {
+					if (getSelectedAlbum().equals(controller.getFlaggedAlbum()) || getSelectedAlbum().equals(controller.getRatedAlbum())) {
+						buttonPanel.getNewAlbumButton().setEnabled(false);
+						buttonPanel.getDeleteAlbumButton().setEnabled(false);
+						buttonPanel.getAddSoundClipsButton().setEnabled(false);
+						buttonPanel.getRemoveSoundClipsButton().setEnabled(false);
+					}
+					else{
+						buttonPanel.getNewAlbumButton().setEnabled(true);
+						buttonPanel.getDeleteAlbumButton().setEnabled(true);
+						buttonPanel.getAddSoundClipsButton().setEnabled(true);
+						buttonPanel.getRemoveSoundClipsButton().setEnabled(true);
+					}
+				}
+				
 			}
 		});
 
 		return tree;
 	}
+	
+
 
 	/**
 	 * Make the table showing sound clips
@@ -216,6 +232,7 @@ public class MusicOrganizerWindow extends JFrame {
 			}
 		}
 	}
+
 	
 	/**
 	 * Updates the album hierarchy by removing an album from it
@@ -240,6 +257,8 @@ public class MusicOrganizerWindow extends JFrame {
 		albumTree.setSelectionRow(0);
 		}
 	}
+	
+	
 	
 	/**
 	 * Refreshes the clipTable in response to the event that clips have
