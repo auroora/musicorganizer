@@ -5,8 +5,8 @@ public class DeleteAlbumCommand implements Command {
 	Album album;
 	MusicOrganizerWindow window;
 	
-	public DeleteAlbumCommand(Album albumInput, MusicOrganizerWindow view) {
-		album = albumInput;
+	public DeleteAlbumCommand(Object object, MusicOrganizerWindow view) {
+		album = (Album) object;
 		window = view;
 	}
 
