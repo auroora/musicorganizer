@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Album {
-	private Album parentAlbum;
-	private String name;
+	protected Album parentAlbum;
+	protected String name;
 	private ArrayList<Album> childrenAlbums;
-	private HashSet<SoundClip> songList;
+	protected HashSet<SoundClip> songList;
 	
 	
 	
@@ -48,7 +48,6 @@ public class Album {
 	
 	public void addToAlbum(SoundClip sound){
 		{
-//			sound.albumList.add(this);
 			songList.add(sound);
 		}
 	}
@@ -65,16 +64,6 @@ public class Album {
 			}
 			
 		}
-	
-//	public void deleteAlbum() {			//Tar bort ett helt album
-//		ArrayList<Album> subAlbums = new ArrayList<Album>();
-//		subAlbums = getAllChildren(this, subAlbums);
-//		if (getParent() != null) {
-//		getParent().getChildrenAlbums().remove(this);
-//			Main.allAlbums.remove(this);
-//		}
-//	}
-	
 
 	public ArrayList<Album> getAllChildren(Album album, ArrayList<Album> subAlbums) {
 		if (album.getChildrenAlbums().size()>0){

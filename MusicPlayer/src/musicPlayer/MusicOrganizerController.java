@@ -11,6 +11,9 @@ public class MusicOrganizerController {
 	public static MusicOrganizerWindow view;//changed from private
 	private SoundClipBlockingQueue queue;
 	private Album root;
+	private Album allSoundClips;
+	private FlaggedSongsAlbum flaggedSongs;
+	private RatedSongsAlbum greatSongs;
 	//this is new:
 //	public static LinkedList<Command> executeCommandHistory; 
 //	public static LinkedList<Command> undoCommandHistory; 
@@ -21,10 +24,21 @@ public class MusicOrganizerController {
 	public MusicOrganizerController() {
 		
 		// TODO: Create the root album for all sound clips
+		
 		root = new Album("All Sound Clips");
 		
 		// Create the View in Model-View-Controller
 		view = new MusicOrganizerWindow(this);
+		
+//		allSoundClips = new Album ("All Sound Clips");
+//		allSoundClips.setParent(root);
+//		view.onAlbumAdded(allSoundClips);
+		flaggedSongs = new FlaggedSongsAlbum ("Flagged Sound Clips");
+		flaggedSongs.setParent(root);
+		view.onAlbumAdded(flaggedSongs);
+		greatSongs = new RatedSongsAlbum ("Great Sound Clips");
+		greatSongs.setParent(root);
+		view.onAlbumAdded(greatSongs);
 		
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
@@ -57,6 +71,16 @@ public class MusicOrganizerController {
 	 */
 	public Album getRootAlbum(){
 		return root;
+	}
+	
+	//Return the search based albums
+	
+	public FlaggedSongsAlbum getFlaggedAlbum() {
+		return flaggedSongs;
+	}
+	
+	public RatedSongsAlbum getRatedAlbum() {
+		return greatSongs;
 	}
 	
 	/**
@@ -180,11 +204,13 @@ public class MusicOrganizerController {
 		// TODO Auto-generated method stub
 		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
 		for(SoundClip i:sounds)i.setFlagged(true);
+		flaggedSongs.getSongs(root);
 	}
 
 	public void rate(Integer rating) {
 		// TODO Auto-generated method stub
 		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
 		for(SoundClip i:sounds)i.setRating(rating);
+		greatSongs.getSongs(root);
 	}
 }

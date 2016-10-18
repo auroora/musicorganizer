@@ -65,6 +65,25 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 	}
 	
+	public JButton getNewAlbumButton() {
+		return newAlbumButton;
+	}
+
+
+	public JButton getDeleteAlbumButton() {
+		return deleteAlbumButton;
+	}
+
+
+	public JButton getAddSoundClipsButton() {
+		return addSoundClipsButton;
+	}
+
+
+	public JButton getRemoveSoundClipsButton() {
+		return removeSoundClipsButton;
+	}
+	
 
 	/**
 	 * Note: You can replace the text strings in the instantiations of the JButtons
@@ -166,14 +185,14 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		return redoButton;
 	}
 	private JButton createFlagButton(){
-		JButton flag = new JButton("Flag"); 
-		redoButton.setToolTipText("Flag selected music");
-		redoButton.addActionListener(new ActionListener() {
+		JButton flagButton = new JButton("Flag"); 
+		flagButton.setToolTipText("Flag selected music");
+		flagButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.flag();
 			}
 		});
-		return flag;
+		return flagButton;
 	}
 
 	private JComboBox<String> createRatingList() {

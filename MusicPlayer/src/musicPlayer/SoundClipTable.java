@@ -18,17 +18,17 @@ public class SoundClipTable extends JList {
 	
 	/**
 	 * Displays the contents of the specified album
-	 * @param a - the album which contents are to be displayed
+	 * @param object - the album which contents are to be displayed
 	 */
-	public void display(Album a){
+	public void display(Object object){
 		this.clearTable();
 		
 		// TODO: Add all sound clips found in 'a'
-		// to the instance variable 'clips'.
+		// to the instance variablze 'clips'.
 		//
 		// Something like this:
 		//
-		 clips.addAll(a.getSongs());
+		 clips.addAll(((Album) object).getSongs());
 		 
 		
 		Object[] data = new Object[clips.size()];
