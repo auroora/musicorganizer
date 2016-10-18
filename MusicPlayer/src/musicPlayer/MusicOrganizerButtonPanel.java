@@ -185,11 +185,12 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		return redoButton;
 	}
 	private JButton createFlagButton(){
-		JButton flagButton = new JButton("Flag"); 
+		JButton flagButton = new JButton("Flag/Unflag"); 
 		flagButton.setToolTipText("Flag selected music");
 		flagButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.flag();
+				view.onClipsUpdated();
 			}
 		});
 		return flagButton;

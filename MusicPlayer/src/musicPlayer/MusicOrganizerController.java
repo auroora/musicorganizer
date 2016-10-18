@@ -203,7 +203,10 @@ public class MusicOrganizerController {
 	public void flag() {
 		// TODO Auto-generated method stub
 		ArrayList<SoundClip> sounds = (ArrayList<SoundClip>) view.getSelectedSoundClips();
-		for(SoundClip i:sounds)i.setFlagged(true);
+		for(SoundClip i:sounds){
+			if(!i.flagged)i.setFlagged(true);
+			else i.setFlagged(false);
+		}
 		flaggedSongs.getSongs(root);
 	}
 
