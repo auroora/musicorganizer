@@ -186,9 +186,9 @@ public class MusicOrganizerWindow extends JFrame {
 	 * selection.
 	 * @return the selected Album
 	 */
-	public Album getSelectedAlbum() {
+	public AlbumBase getSelectedAlbum() {
 		System.out.println("selected album");
-		return (Album) getSelectedTreeNode().getUserObject();
+		return (AlbumBase) getSelectedTreeNode().getUserObject();
 	}
 	
 	
@@ -205,7 +205,7 @@ public class MusicOrganizerWindow extends JFrame {
 	 * Updates the album hierarchy with a new album
 	 * @param newAlbum
 	 */
-	public void onAlbumAdded(Album newAlbum){
+	public void onAlbumAdded(AlbumBase newAlbum){
 		
 		assert newAlbum != null;
 		
@@ -265,7 +265,7 @@ public class MusicOrganizerWindow extends JFrame {
 	 * been modified in an album
 	 */
 	public void onClipsUpdated(){
-		Album a = (Album) getSelectedTreeNode().getUserObject();
+		AlbumBase a = (AlbumBase) getSelectedTreeNode().getUserObject();
 		clipTable.display(a);
 	}
 }

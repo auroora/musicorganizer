@@ -129,7 +129,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		addSoundClipButton.setToolTipText("Add Selected Sound Clips To Selected Album");
 		addSoundClipButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				controller.addSoundClips(view.getSelectedAlbum());
+				controller.addSoundClips((Album) view.getSelectedAlbum());
 
 			}
 		});
@@ -142,7 +142,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		removeSoundClipsButton.setToolTipText("Remove Selected Sound Clips From Selected Album");
 		removeSoundClipsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.removeSoundClips(view.getSelectedAlbum());
+				controller.removeSoundClips((Album) view.getSelectedAlbum());
 			}
 		});
 		return removeSoundClipsButton;

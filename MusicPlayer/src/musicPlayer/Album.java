@@ -5,27 +5,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Album {
-	protected Album parentAlbum;
-	protected String name;
+public class Album extends AlbumBase {
 	private ArrayList<Album> childrenAlbums;
-	protected HashSet<SoundClip> songList;
-	
-	
-	
 	
 	public Album(String albumName) {
 		name = albumName;
 		songList = new HashSet<SoundClip>();
 		childrenAlbums = new ArrayList<Album>();
-	}
-	
-	public void setParent(Album album){
-		parentAlbum = album;
-	}
-	
-	public Album getParent(){
-		return parentAlbum;
 	}
 	
 	public void setchildrenAlbums(Album album){
@@ -36,14 +22,6 @@ public class Album {
 	
 	public ArrayList<Album> getChildrenAlbums(){
 		return childrenAlbums;
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public HashSet<SoundClip> getSongs(){
-		return songList;
 	}
 	
 	public void addToAlbum(SoundClip sound){
@@ -73,11 +51,6 @@ public class Album {
 		}
 	}
 		return subAlbums;
-	}
-	
-	@Override
-	public String toString() {
-	    return this.name;
 	}
 	
 

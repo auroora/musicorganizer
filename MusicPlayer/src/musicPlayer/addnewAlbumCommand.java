@@ -16,8 +16,8 @@ public class addnewAlbumCommand implements Command {
 	public void execute() {
 try {
 		
-			album.setParent(window.getSelectedAlbum());
-			window.getSelectedAlbum().setchildrenAlbums(album);
+			album.setParent((Album) window.getSelectedAlbum());
+			((Album) window.getSelectedAlbum()).setchildrenAlbums(album);
 			window.onAlbumAdded(album);
 			
 			//save information

@@ -1,11 +1,13 @@
 package musicPlayer;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
-public class FlaggedSongsAlbum extends Album {
+public class FlaggedSongsAlbum extends AlbumBase {
 	
 	public FlaggedSongsAlbum(String albumName) {
-		super(albumName);
+		name = albumName;
+		songList = new HashSet<SoundClip>();
 	}
 
 
@@ -20,5 +22,6 @@ public class FlaggedSongsAlbum extends Album {
 		}
 		
 	}
+
 
 }
