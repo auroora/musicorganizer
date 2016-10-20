@@ -46,7 +46,13 @@ public class SoundClip {
 	}
 	
 	public String toString(){
-		return file.getName()+" rating: "+this.rating;
+		if (this.isFlagged() == true) {
+			return file.getName()+" rating: "+this.rating + ", Flagged";
+		}
+		else{
+			return file.getName()+" rating: "+this.rating;
+		}
+		
 	}
 	
 	@Override
