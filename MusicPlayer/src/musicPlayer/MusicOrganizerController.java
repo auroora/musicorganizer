@@ -14,12 +14,7 @@ public class MusicOrganizerController {
 	private Album allSoundClips;
 	private FlaggedSongsAlbum flaggedSongs;
 	private RatedSongsAlbum greatSongs;
-	//this is new:
-//	public static LinkedList<Command> executeCommandHistory; 
-//	public static LinkedList<Command> undoCommandHistory; 
 	CommandHistory commandHistory;
-	
-//	private static addnewAlbumCommand addnewAlbum = new addnewAlbumCommand();
 	
 	public MusicOrganizerController() {
 		
@@ -30,9 +25,6 @@ public class MusicOrganizerController {
 		// Create the View in Model-View-Controller
 		view = new MusicOrganizerWindow(this);
 		
-//		allSoundClips = new Album ("All Sound Clips");
-//		allSoundClips.setParent(root);
-//		view.onAlbumAdded(allSoundClips);
 		flaggedSongs = new FlaggedSongsAlbum ("Flagged Sound Clips");
 		flaggedSongs.setParent(root);
 		view.onAlbumAdded(flaggedSongs);
@@ -44,10 +36,6 @@ public class MusicOrganizerController {
 		queue = new SoundClipBlockingQueue();
 		
 		commandHistory = new CommandHistory();
-		
-		//this is new:
-//		executeCommandHistory = new LinkedList<Command>();	
-//		undoCommandHistory = new LinkedList<Command>();
 		
 		// Create a separate thread for the sound clip player and start it
 		(new Thread(new SoundClipPlayer(queue))).start();
@@ -86,23 +74,13 @@ public class MusicOrganizerController {
 	/**
 	 * Adds an album to the Music Organizer
 	 */
-	public void addNewAlbum(){ //changed to static
+	public void addNewAlbum(){
 		//TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
 		String name = view.promptForAlbumName();
 		Album newAlbum = new Album(name);
 		addnewAlbumCommand addnewAlbum = new addnewAlbumCommand(newAlbum, view);
 		try {
-			
-//			Album album=new Album(view.promptForAlbumName());
-//			album.setParent(view.getSelectedAlbum());
-//			view.getSelectedAlbum().setchildrenAlbums(album);
-//			view.onAlbumAdded(album);
-//			
-//			//save information
-//			MusicOrganizerButtonPanel.addnewAlbumCommand.saveHistory(album);
-//			System.out.println("added album "+MusicOrganizerButtonPanel.addnewAlbumCommand);
-//			MusicOrganizerController.addToCommandHistory(MusicOrganizerButtonPanel.addnewAlbumCommand);
 			
 			addnewAlbum.execute();
 			
@@ -122,15 +100,13 @@ public class MusicOrganizerController {
 	/**
 	 * Removes an album from the Music Organizer
 	 */
-	public void deleteAlbum(){ //changed to static
+	public void deleteAlbum(){
 		//TODO Update parameters if needed
 		// TODO: Add your code here
 		DeleteAlbumCommand deleteAlbum = new DeleteAlbumCommand(view.getSelectedAlbum(), view);
 		deleteAlbum.execute();
 		commandHistory.setUndoCommand(deleteAlbum);
 	}
-//	public static void deleteAlbumWithUndo(){
-//	}
 	
 	/**
 	 * Adds sound clips to an album
@@ -168,37 +144,12 @@ public class MusicOrganizerController {
 	}
 
 	public void undo() {
-		// TODO Auto-generated method stub
-//		try {
-//			Command command = executeCommandHistory.poll();
-//			System.out.println("command History size:"+executeCommandHistory.size());
-//			System.out.println("undo "+command);
-//			command.undo();
-//			undoCommandHistory.addFirst(command);
-//		} catch (NullPointerException e) {
-//			// TODO Auto-generated catch block
-//		}
 		commandHistory.undoPressed();
 	}
 
 	public void redo() {
-		// TODO Auto-generated method stub
-//		try {
-//			Command  command = undoCommandHistory.poll();
-//			System.out.println("command History size:"+executeCommandHistory.size());
-//			System.out.println("undo "+command);
-////			command.redo();
-////			executeCommandHistory.addFirst(command);
-//		} catch (NullPointerException e) {
-//			// TODO Auto-generated catch block
-//			
-//		}
 		commandHistory.redoPressed();
 	}
-//	public static void addToCommandHistory(Command command){
-//		executeCommandHistory.addFirst(command);
-//		System.out.println("command History size:"+ executeCommandHistory.size());
-//	}
 
 	public void flag() {
 		// TODO Auto-generated method stub
